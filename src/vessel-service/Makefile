@@ -1,7 +1,8 @@
-// vessel-service/Makefile
 build:
 	protoc -I. --go_out=plugins=micro:. \
-      proto/vessel/vessel.proto
+		proto/vessel/vessel.proto
+
+	GOOS=linux GOARCH=amd64 go build
 	docker build -t docker-vessel-service .
 
 run:

@@ -1,22 +1,36 @@
 # vessel-service/Dockerfile
-FROM golang:alpine as builder
+#FROM golang:alpine as builder
 
-RUN apk --no-cache add git
+#RUN apk --no-cache add git
 
-WORKDIR /app/vessel-service
+#WORKDIR /app/vessel-service
 
-COPY . .
+#COPY . .
 
-RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o vessel-service
+#RUN go mod download
+#RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o vessel-service
+
+
+#FROM alpine:latest
+
+#RUN apk --no-cache add ca-certificates
+
+#RUN mkdir /app
+#WORKDIR /app
+#COPY --from=builder /app/vessel-service .
+
+#CMD ["./vessel-service"]
+
+
+
 
 
 FROM alpine:latest
 
-RUN apk --no-cache add ca-certificates
-
 RUN mkdir /app
 WORKDIR /app
-COPY --from=builder /app/vessel-service .
+ADD cvessel-service /app/vessel-service
+
+EXPOSE 50051
 
 CMD ["./vessel-service"]
