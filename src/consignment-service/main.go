@@ -49,10 +49,10 @@ func (repo *Repository) GetAll() []*pb.Consignment {
 // we defined in our protobuf definition. You can check the interface
 // in the generated code itself for the exact method signatures etc
 // to give you a better idea.
-type service struct {
-	repo repository
-	vesselClient vesselProto.VesselServiceClient
-}
+// type service struct {
+// 	repo repository
+// 	vesselClient vesselProto.VesselServiceClient
+// }
 
 // CreateConsignment - we created just one method on our service,
 // which is a create method, which takes a context and a request as an

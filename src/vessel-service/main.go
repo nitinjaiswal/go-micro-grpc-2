@@ -6,11 +6,11 @@ import (
 	"errors"
 	"fmt"
 
-	pb "github.com/nitinjaiswal/go-micro-grpc-2/src/consignment-service/proto/consignment"
+	pb "github.com/nitinjaiswal/go-micro-grpc-2/src/vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
 )
 
-type Repository interface {
+type repository interface {
 	FindAvailable(*pb.Specification) (*pb.Vessel, error)
 }
 
