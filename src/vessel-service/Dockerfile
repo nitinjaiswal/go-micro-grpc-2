@@ -29,7 +29,7 @@ FROM alpine:latest
 
 RUN mkdir /app
 WORKDIR /app
-ADD cvessel-service /app/vessel-service
+ADD vessel-service /app/vessel-service
 
 EXPOSE 50051
 
