@@ -10,7 +10,8 @@ import (
 	"context"
 
 	pb "github.com/nitinjaiswal/go-micro-grpc-2/src/consignment-service/proto/consignment"
-	"google.golang.org/grpc"
+	micro "github.com/micro/go-micro"
+
 )
 
 const (
@@ -30,12 +31,17 @@ func parseFile(file string) (*pb.Consignment, error) {
 
 func main() {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("Did not connect: %v", err)
-	}
-	defer conn.Close()
-	client := pb.NewShippingServiceClient(conn)
+	// conn, err := grpc.Dial(address, grpc.WithInsecure())
+	// if err != nil {
+	// 	log.Fatalf("Did not connect: %v", err)
+	// }
+	// defer conn.Close()
+	// client := pb.NewShippingServiceClient(conn)
+
+	service := micro.NewService(micro.Name("docker.consignment.cli"))
+	service.Init()
+
+	client := pb.NewShippingServiceClient("docker.service.consignment", service.Client())
 
 	// Contact the server and print out its response.
 	file := defaultFilename
@@ -48,7 +54,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not parse file: %v", err)
 	}
-
 	r, err := client.CreateConsignment(context.Background(), consignment)
 	if err != nil {
 		log.Fatalf("Could not greet: %v", err)
